@@ -1,6 +1,6 @@
 // Store student data directly in the script
 const students = [
-    { name: "Axmed Cali Maxamed", year: "2024/2025", course: "Computer Basic" },
+    { name: "Axmed Cali Maxamed", year: "2024/2025", course: "Computer Basics" },
     { name: "Amina Ahmed", year: "2024/2025", course: "Mathematics" }
 ];
 
