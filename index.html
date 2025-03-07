@@ -4,49 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caalin Academy - Student Information</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #003366;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            display: block; /* Show image */
-            margin: 0 auto; /* Center the image */
-            animation: fade 3s infinite; /* Smooth fade animation */
-        }
-        .student-info {
-            margin-top: 20px;
-        }
-
-        /* Animation for the image */
-        @keyframes fade {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -59,35 +17,6 @@
         <img id="studentImage" alt="Student Image">
     </div>
 
-    <script>
-        // Store student data directly in the script
-        const students = [
-            { name: "Axmed Cali Maxamed", year: "2024/2025", course: "Computer Basic" },
-            { name: "Amina Ahmed", year: "2024/2025", course: "Mathematics" }
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const studentName = params.get('name');
-
-            if (studentName) {
-                const student = students.find(s => s.name === studentName);
-
-                if (student) {
-                    document.getElementById('studentInfo').innerHTML = `
-                        <p><strong>Name:</strong> ${student.name}</p>
-                        <p><strong>Academic Year:</strong> ${student.year}</p>
-                        <p><strong>Course:</strong> ${student.course}</p>
-                    `;
-                    const studentImage = document.getElementById('studentImage');
-                    studentImage.src = `${student.name}.jpg`; // Ensure this matches the image file name
-                } else {
-                    document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
-                }
-            } else {
-                document.getElementById('studentInfo').innerHTML = '<p>No student name provided in the URL.</p>';
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
