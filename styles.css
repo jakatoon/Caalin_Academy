@@ -19,7 +19,7 @@ header {
 }
 
 header img {
-    width: 100px; /* Logo size */
+    width: 80px; /* Adjusted logo size for better mobile view */
     margin-bottom: 10px; /* Space between logo and title */
 }
 
@@ -29,7 +29,7 @@ h1 {
 
 .container {
     max-width: 600px;
-    width: 100%; /* Make it responsive */
+    width: 90%; /* Make it responsive on smaller screens */
     padding: 20px;
     background: white;
     border-radius: 5px;
@@ -64,10 +64,16 @@ img {
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .container {
-        padding: 15px;
+    header img {
+        width: 60px; /* Further reduce logo size on small screens */
     }
     h1 {
-        font-size: 1.5em;
+        font-size: 1.5em; /* Adjust font size for heading */
+    }
+    .container {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+    .student-info {
+        font-size: 0.9em; /* Adjust font size for better readability */
     }
 }
