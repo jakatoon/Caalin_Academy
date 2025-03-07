@@ -4,8 +4,8 @@ body {
     padding: 0;
     background-color: #e9f5e9; /* Light green background */
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: column; /* Stack header and container vertically */
+    align-items: center; /* Center items */
     height: 100vh; /* Full height of the viewport */
 }
 
@@ -16,7 +16,6 @@ header {
     text-align: center;
     width: 100%; /* Full width of the viewport */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Shadow for the header */
-    position: relative; /* Positioning for the logo */
 }
 
 header img {
