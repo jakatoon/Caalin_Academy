@@ -12,8 +12,10 @@ body {
 header {
     background-color: #2c6e49; /* Dark green header */
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px; /* Increased padding for better spacing */
     text-align: center;
+    border-radius: 5px 5px 0 0; /* Rounded top corners */
+    margin-bottom: 10px; /* Space between header and container */
 }
 
 h1 {
@@ -22,12 +24,15 @@ h1 {
 
 .container {
     max-width: 600px;
-    margin: 20px; /* Add margin for spacing */
+    width: 100%; /* Make it responsive */
     padding: 20px;
     background: white;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Darker shadow */
     border: 5px solid rgba(0, 0, 0, 0.2); /* Dark frame */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items */
 }
 
 img {
@@ -41,6 +46,7 @@ img {
 
 .student-info {
     margin-top: 20px;
+    text-align: center; /* Center text within student info */
 }
 
 /* Animation for the image */
