@@ -32,6 +32,7 @@
             max-width: 100%;
             height: auto;
             border-radius: 5px;
+            display: none; /* Hide image initially */
         }
         .student-info {
             margin-top: 20px;
@@ -46,7 +47,7 @@
     <div class="container" id="studentContainer">
         <h2>Student Information</h2>
         <div class="student-info" id="studentInfo"></div>
-        <img id="studentImage" alt="Student Image" style="display: none;">
+        <img id="studentImage" alt="Student Image">
     </div>
 
     <script>
@@ -55,6 +56,7 @@
             const studentName = params.get('name');
 
             if (studentName) {
+                // Fetch the student data from student.txt
                 fetch('student.txt')
                     .then(response => {
                         if (!response.ok) {
@@ -63,11 +65,13 @@
                         return response.text();
                     })
                     .then(data => {
+                        // Process the student data
                         const students = data.split('\n').map(line => {
                             const [name, year, course] = line.split(',');
                             return { name: name.trim(), year: year.trim(), course: course.trim() };
                         });
 
+                        // Find the student by name
                         const student = students.find(s => s.name === studentName);
                         if (student) {
                             document.getElementById('studentInfo').innerHTML = `
@@ -76,7 +80,7 @@
                                 <p><strong>Course:</strong> ${student.course}</p>
                             `;
                             const studentImage = document.getElementById('studentImage');
-                            studentImage.src = `${student.name}.jpg`;
+                            studentImage.src = `${student.name}.jpg`; // Ensure this matches the image file name
                             studentImage.style.display = 'block'; // Show image
                         } else {
                             document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
