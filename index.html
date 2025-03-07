@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information - Caalin Academy</title>
+    <title>Caalin Academy - Student Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,10 +32,19 @@
             max-width: 100%;
             height: auto;
             border-radius: 5px;
-            display: none; /* Hide image initially */
+            display: block; /* Show image */
+            margin: 0 auto; /* Center the image */
+            animation: fade 3s infinite; /* Smooth fade animation */
         }
         .student-info {
             margin-top: 20px;
+        }
+
+        /* Animation for the image */
+        @keyframes fade {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -53,7 +62,7 @@
     <script>
         // Store student data directly in the script
         const students = [
-            { name: "Axmed Cali Maxamed", year: "2024/2025", course: "Computer Basics" },
+            { name: "Axmed Cali Maxamed", year: "2024/2025", course: "Computer Basic" },
             { name: "Amina Ahmed", year: "2024/2025", course: "Mathematics" }
         ];
 
@@ -72,7 +81,6 @@
                     `;
                     const studentImage = document.getElementById('studentImage');
                     studentImage.src = `${student.name}.jpg`; // Ensure this matches the image file name
-                    studentImage.style.display = 'block'; // Show image
                 } else {
                     document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
                 }
