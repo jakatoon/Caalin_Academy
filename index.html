@@ -3,90 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education Website</title>
+    <title>Student Information - Caalin Academy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            color: #333;
         }
         header {
-            background: #5b8cba;
+            background-color: #003366;
             color: white;
-            padding: 20px 0;
+            padding: 10px 20px;
             text-align: center;
         }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
+        h1 {
+            margin: 0;
         }
         .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        section {
+            max-width: 600px;
+            margin: 20px auto;
             padding: 20px;
             background: white;
-            margin: 20px 0;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #5b8cba;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
         }
-        @media (max-width: 600px) {
-            .container {
-                width: 95%;
-            }
-            nav a {
-                display: block;
-                margin: 10px 0;
-            }
+        .student-info {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Our Education Portal</h1>
-        <nav>
-            <a href="#courses">Courses</a>
-            <a href="#about">About Us</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <img src="logo.png" alt="Caalin Academy Logo" style="width: 100px;">
+        <h1>Caalin Academy</h1>
     </header>
-    
-    <div class="container">
-        <section id="courses">
-            <h2>Our Courses</h2>
-            <p>We offer a variety of courses to cater to your educational needs. Join us and enhance your skills!</p>
-        </section>
-
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We are committed to providing quality education and resources to help learners succeed.</p>
-        </section>
-
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, feel free to reach out via our email: info@educationportal.com.</p>
-        </section>
+    <div class="container" id="studentContainer">
+        <h2>Student Information</h2>
+        <div class="student-info" id="studentInfo"></div>
+        <img id="studentImage" alt="Student Image">
     </div>
 
-    <footer>
-        <p>&copy; 2025 Education Portal. All rights reserved.</p>
-    </footer>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const studentName = params.get('name');
+        
+        if (studentName) {
+            fetch('student.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const students = data.split('\n').map(line => {
+                        const [name, year, course] = line.split(',');
+                        return { name: name.trim(), year: year.trim(), course: course.trim() };
+                    });
+
+                    const student = students.find(s => s.name === studentName);
+                    if (student) {
+                        document.getElementById('studentInfo').innerHTML = `
+                            <p><strong>Name:</strong> ${student.name}</p>
+                            <p><strong>Academic Year:</strong> ${student.year}</p>
+                            <p><strong>Course:</strong> ${student.course}</p>
+                        `;
+                        document.getElementById('studentImage').src = `${student.name}.jpg`;
+                    } else {
+                        document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching student data:', error);
+                });
+        } else {
+            document.getElementById('studentInfo').innerHTML = '<p>No student name provided in the URL.</p>';
+        }
+    </script>
 </body>
 </html>
