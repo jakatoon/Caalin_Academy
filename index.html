@@ -56,7 +56,7 @@
             const studentName = params.get('name');
 
             if (studentName) {
-                // Fetch the student data from student.txt
+                console.log(`Fetching data for student: ${studentName}`);
                 fetch('student.txt')
                     .then(response => {
                         if (!response.ok) {
@@ -65,12 +65,14 @@
                         return response.text();
                     })
                     .then(data => {
-                        // Process the student data
+                        console.log('Student data fetched successfully.');
                         const students = data.split('\n').map(line => {
                             const [name, year, course] = line.split(',');
                             return { name: name.trim(), year: year.trim(), course: course.trim() };
                         });
 
+                        console.log('Parsed student data:', students);
+                        
                         // Find the student by name
                         const student = students.find(s => s.name === studentName);
                         if (student) {
@@ -80,9 +82,10 @@
                                 <p><strong>Course:</strong> ${student.course}</p>
                             `;
                             const studentImage = document.getElementById('studentImage');
-                            studentImage.src = `${student.name}.jpg`; // Ensure this matches the image file name
+                            studentImage.src = `${student.name}.jpg`; // Make sure this matches the image file name
                             studentImage.style.display = 'block'; // Show image
                         } else {
+                            console.log('Student not found in data.');
                             document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
                         }
                     })
@@ -91,6 +94,7 @@
                         document.getElementById('studentInfo').innerHTML = '<p>Error loading student information. Please try again later.</p>';
                     });
             } else {
+                console.log('No student name provided in the URL.');
                 document.getElementById('studentInfo').innerHTML = '<p>No student name provided in the URL.</p>';
             }
         });
