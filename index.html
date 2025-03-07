@@ -46,46 +46,50 @@
     <div class="container" id="studentContainer">
         <h2>Student Information</h2>
         <div class="student-info" id="studentInfo"></div>
-        <img id="studentImage" alt="Student Image">
+        <img id="studentImage" alt="Student Image" style="display: none;">
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const studentName = params.get('name');
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const studentName = params.get('name');
 
-        if (studentName) {
-            fetch('student.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const students = data.split('\n').map(line => {
-                        const [name, year, course] = line.split(',');
-                        return { name: name.trim(), year: year.trim(), course: course.trim() };
+            if (studentName) {
+                fetch('student.txt')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        const students = data.split('\n').map(line => {
+                            const [name, year, course] = line.split(',');
+                            return { name: name.trim(), year: year.trim(), course: course.trim() };
+                        });
+
+                        const student = students.find(s => s.name === studentName);
+                        if (student) {
+                            document.getElementById('studentInfo').innerHTML = `
+                                <p><strong>Name:</strong> ${student.name}</p>
+                                <p><strong>Academic Year:</strong> ${student.year}</p>
+                                <p><strong>Course:</strong> ${student.course}</p>
+                            `;
+                            const studentImage = document.getElementById('studentImage');
+                            studentImage.src = `${student.name}.jpg`;
+                            studentImage.style.display = 'block'; // Show image
+                        } else {
+                            document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching student data:', error);
+                        document.getElementById('studentInfo').innerHTML = '<p>Error loading student information. Please try again later.</p>';
                     });
-
-                    const student = students.find(s => s.name === studentName);
-                    if (student) {
-                        document.getElementById('studentInfo').innerHTML = `
-                            <p><strong>Name:</strong> ${student.name}</p>
-                            <p><strong>Academic Year:</strong> ${student.year}</p>
-                            <p><strong>Course:</strong> ${student.course}</p>
-                        `;
-                        document.getElementById('studentImage').src = `${student.name}.jpg`;
-                    } else {
-                        document.getElementById('studentInfo').innerHTML = '<p>Student not found.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching student data:', error);
-                    document.getElementById('studentInfo').innerHTML = '<p>Error loading student information. Please try again later.</p>';
-                });
-        } else {
-            document.getElementById('studentInfo').innerHTML = '<p>No student name provided in the URL.</p>';
-        }
+            } else {
+                document.getElementById('studentInfo').innerHTML = '<p>No student name provided in the URL.</p>';
+            }
+        });
     </script>
 </body>
 </html>
